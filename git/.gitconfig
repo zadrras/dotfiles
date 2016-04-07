@@ -1,0 +1,27 @@
+[user]
+	name = ZadrraS
+	email = zadrras@gmail.com
+
+[core]
+	excludesfile = ~/.gitignore_global
+	editor = nvim
+
+[color]
+	ui = true
+
+[status]
+	relativePaths = true
+
+[grep]
+	LineNumber = true
+
+[alias]
+	l = log --no-merges
+	lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%C(bold blue)<%an>%Creset' --abbrev-commit
+	st = status -sb
+	purr = pull --rebase
+	b = branch
+	co = checkout
+
+[push]
+	default = simple

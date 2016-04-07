@@ -1,0 +1,42 @@
+[Toplevel bottom]
+expand=true
+orientation=bottom
+size=24
+
+[Object menu]
+locked=true
+position=0
+toplevel-id=bottom
+object-type=menu
+
+[Object window-list]
+locked=true
+position=1
+toplevel-id=bottom
+applet-iid=WnckletFactory::WindowListApplet
+object-type=applet
+
+
+[Object notification-area]
+locked=true
+position=20
+toplevel-id=bottom
+applet-iid=NotificationAreaAppletFactory::NotificationArea
+object-type=applet
+panel-right-stick=true
+
+[Object workspaceswitcherapplet]
+locked=true
+position=10
+toplevel-id=bottom
+applet-iid=WnckletFactory::WorkspaceSwitcherApplet
+object-type=applet
+panel-right-stick=true
+
+[Object clock]
+locked=true
+position=0
+toplevel-id=bottom
+applet-iid=ClockAppletFactory::ClockApplet
+object-type=applet
+panel-right-stick=true
