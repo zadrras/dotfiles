@@ -3,11 +3,12 @@ expand=true
 orientation=bottom
 size=24
 
-[Object menu]
-locked=true
+[Object matemenuapplet]
+locked=True
 position=0
 toplevel-id=bottom
-object-type=menu
+applet-iid=MateMenuAppletFactory::MateMenuApplet
+object-type=applet
 
 [Object window-list]
 locked=true

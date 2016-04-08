@@ -15,8 +15,9 @@ pushd "$dldir"
 popd
 
 #Arch icon for menu button
-sudo cp $DIR/arch-icon/start-here.png /usr/share/icons/Adwaita/24x24/places/start-here.png
-sudo cp $DIR/arch-icon/start-here.svg /usr/share/icons/Adwaita/scalable/places/start-here.svg
+#sudo cp $DIR/arch-icon/start-here.png /usr/share/icons/Adwaita/24x24/places/start-here.png
+#sudo cp $DIR/arch-icon/start-here.svg /usr/share/icons/Adwaita/scalable/places/start-here.svg
+sudo cp $DIR/arch-icon/start-here.svg /usr/share/mate-menu/icons/mate-logo.svg
 
 #Mate panel
 sudo cp $DIR/mate-panel/my.layout /usr/share/mate-panel/layouts/
