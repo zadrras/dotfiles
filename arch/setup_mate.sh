@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-PWD=`pwd`
+DIR=`dirname $0`
 
 #Mate themes
 mkdir -p $HOME/.themes
@@ -15,9 +15,9 @@ pushd "$dldir"
 popd
 
 #Arch icon for menu button
-sudo cp $PWD/arch-icon/start-here.png /usr/share/icons/Adwaita/24x24/places/start-here.png
-sudo cp $PWD/arch-icon/start-here.svg /usr/share/icons/Adwaita/scalable/places/start-here.svg
+sudo cp $DIR/arch-icon/start-here.png /usr/share/icons/Adwaita/24x24/places/start-here.png
+sudo cp $DIR/arch-icon/start-here.svg /usr/share/icons/Adwaita/scalable/places/start-here.svg
 
 #Mate panel
-sudo cp $PWD/mate-panel/my.layout /usr/share/mate-panel/layouts/
+sudo cp $DIR/mate-panel/my.layout /usr/share/mate-panel/layouts/
 mate-panel --layout my --reset
