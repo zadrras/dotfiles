@@ -5,4 +5,4 @@ git submodule update --init --recursive
 
 stow fish
 stow nvim
-nvim +PlugInstall +qall
+nvim +'PlugInstall | qall'
