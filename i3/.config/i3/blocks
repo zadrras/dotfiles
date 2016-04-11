@@ -14,7 +14,7 @@ markup=none
 
 # Keymap
 [keymap]
-command=echo $(setxkbmap -query | awk 'END{print $2}')
+command=echo $(setxkbmap -query | awk 'END{print toupper($2)}')
 interval=1
 
 [separator]
@@ -96,9 +96,14 @@ interval=30
 
 [separator]
 
-# Date Time
-[time]
-command=date '+%Y-%m-%d %H:%M:%S'
+[date]
+label=
 color=#f8f8f2
-full_text=
-interval=1
+command=echo "`date +'%Y-%m-%d'`"
+interval=60
+
+[time]
+label=
+color=#f8f8f2
+command=echo "`date +'%H:%M'`"
+interval=60

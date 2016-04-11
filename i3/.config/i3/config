@@ -18,9 +18,11 @@ set $dark_green #77A915
 set $darker_green #4D6917
 set $darkest_green #002908
 set $black #000000
+set $white #FFFFFF
+set $dark_gray #1A1A1A
 
 # Font
-set $font Inconsolata, FontAwesome 12
+set $font Roboto, FontAwesome 12
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -40,8 +42,7 @@ font pango:$font
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
-# start a terminal
-bindsym $mod+Return exec i3-sensible-terminal
+focus_follows_mouse  no
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -176,11 +177,14 @@ bar {
         font pango:$font
         strip_workspace_numbers yes
         colors {
-                background         $black
-                separator          $darker_green
-                focused_workspace  $green        $green        $black
-                inactive_workspace $darker_green $darker_green $black
-                urgent_workspace   $pink         $pink         $black
+                separator $dark_green
+                background $dark_gray
+                statusline $white
+                #                  border  background text
+                focused_workspace  $dark_gray $dark_gray    $white
+                active_workspace   $dark_gray $dark_green   $dark_green
+                inactive_workspace $dark_gray $dark_gray    $dark_green
+                urgent_workspace   $dark_gray $dark_gray    $pink
         }
 }
 #hide_edge_borders both
@@ -192,9 +196,12 @@ client.focused_inactive $black $darkest_green   $dark_green $pink
 client.urgent           $black $pink            $dark_green $pink
 client.background       $black
 
-# Disable title bars
+# Border stuff
 for_window [class="^.*"] border pixel 1
-
+gaps inner 5
+gaps outer 5
+smart_gaps on
+smart_borders on
 
 # Alsa controls
 bindsym XF86AudioRaiseVolume exec --no-startup-id amixer set Master 5%+ #increase sound volume
@@ -216,9 +223,6 @@ bindsym XF86AudioPrev exec playerctl previous
 
 # Wallpaper
 exec_always --no-startup-id "sh -c 'sleep 1; feh --bg-fill ~/Pictures/bg.jpg'"
-
-# Compositor
-exec_always compton
 
 # Lockscreen
 bindsym Control+Shift+l exec ~/.config/i3/lock.sh
@@ -243,9 +247,21 @@ bindsym $mod+x mode "$mode_system"
 bindcode Mod1+50 exec ~/.config/i3/setkeymap.sh
 
 # Default workspace
-exec i3-msg "workspace 1 $ws1"
+exec i3-msg "workspace number 1 $ws1"
 
-# Applications
+# Application binds
+set $browser chromium
+
+# Start on boot
 exec dropbox start
 
-exec --no-startup-id i3-msg 'workspace $ws1; exec chromium'
+# Applications
+bindsym $mod+b exec $browser
+bindsym $mod+t exec atom
+bindsym $mod+c exec caja
+bindsym $mod+Return exec i3-sensible-terminal
+
+exec --no-startup-id i3-msg 'workspace number 1 $ws1; exec $browser'
+exec --no-startup-id i3-msg 'workspace number 2 $ws2; exec i3-sensible-terminal'
+exec --no-startup-id i3-msg 'workspace number 3 $ws3; exec i3-sensible-terminal'
+exec --no-startup-id compton -b
