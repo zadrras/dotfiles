@@ -54,6 +54,7 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'xolox/vim-easytags'
 Plug 'xolox/vim-lua-ftplugin'
 Plug 'xolox/vim-misc'
+Plug 'chriskempson/base16-vim'
 
 Plug 'JSON.vim'
 Plug 'a.vim'
@@ -72,7 +73,7 @@ call plug#end()
 " Sets up the specific font and color for individual system settings
 
 syntax on " Enable syntax highlighting
-colorscheme molokai " Set up my currently favored colorscheme
+colorscheme base16-default " Set up my currently favored colorscheme
 " Disable terminal background for transparency goodness
 hi Normal ctermbg=none
 
