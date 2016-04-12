@@ -286,7 +286,6 @@ exec i3-msg "workspace number 1 $ws1"
 set $browser chromium
 
 # Start on boot
-exec dropbox start
 
 # Applications
 bindsym $mod+b exec $browser
