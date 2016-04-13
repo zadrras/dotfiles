@@ -145,6 +145,10 @@ bindsym $mod+a focus parent
 # focus the child container
 #bindsym $mod+d focus child
 
+# Cycle through workspaces
+bindsym $mod+Control+Left workspace prev
+bindsym $mod+Control+Right workspace next
+
 # Workspaces
 set $ws1 1 
 set $ws2 2 
