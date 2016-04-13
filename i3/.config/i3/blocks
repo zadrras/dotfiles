@@ -50,7 +50,7 @@ interval=30
 [iface]
 label=
 #instance=wlan0
-color=#5d9541
+color=#558024
 full_text=
 interval=10
 separator=false
