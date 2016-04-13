@@ -19,6 +19,15 @@ interval=1
 
 [separator]
 
+# Dropbox
+[dropbox]
+command=exec ~/.config/i3/dropbox.sh
+label=
+full_text=
+interval=5
+
+[separator]
+
 # Volume indicator
 [volume]
 label=
