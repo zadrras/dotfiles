@@ -8,7 +8,7 @@ battery_status = subprocess.check_output(acpi_command).decode("ascii")
 status_sections = battery_status.split(' ')
 status = status_sections[2].strip(' ,')
 charge = status_sections[3].strip(' ,')
-time = status_sections[4].strip(' ,')[3:]
+time = status_sections[4].strip(' ,')[:-3]
 
 color = "#D8D8D8"
 battery_symbol = ":V"
@@ -26,7 +26,7 @@ if status == "Discharging":
     if charge_num > charge_med:
         color = "#558024"
     elif charge_num > charge_low:
-        color = "#DE935F"
+        color = "#F0C674"
     elif charge_num > charge_empty:
         color = "#A54242"
     else:

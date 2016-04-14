@@ -14,7 +14,8 @@ markup=none
 
 # Keymap
 [keymap]
-command=echo $(setxkbmap -query | awk 'END{print toupper($2)}')
+command=echo  $(setxkbmap -query | awk 'END{print toupper($2)}')
+color=#2669a0
 interval=1
 
 [separator]
