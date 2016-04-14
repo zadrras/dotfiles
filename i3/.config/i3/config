@@ -268,7 +268,7 @@ bindsym XF86AudioPrev exec playerctl previous
 exec_always --no-startup-id "sh -c 'sleep 1; feh --bg-fill ~/Pictures/bg.jpg'"
 
 # Lockscreen
-bindsym Control+Shift+l exec ~/.config/i3/scripts/lock
+bindsym Control+Mod1+l exec ~/.config/i3/scripts/lock
 
 set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
 mode "$mode_system" {

@@ -1,0 +1,51 @@
+#!/usr/bin/env python
+
+import subprocess
+
+acpi_command = ["acpi", "-b"]
+battery_status = subprocess.check_output(acpi_command).decode("ascii")
+
+status_sections = battery_status.split(' ')
+status = status_sections[2].strip(' ,')
+charge = status_sections[3].strip(' ,')
+time = status_sections[4].strip(' ,')
+
+color = "#D8D8D8"
+battery_symbol = ":V"
+charge_num = int(charge.strip('%'))
+
+status_disp = ''
+if status == "Discharging":
+    status_disp = ''
+    if charge_num > 90:
+        color = "#D8D8D8"
+    if charge_num > 60:
+        color = "#558024"
+    elif charge_num > 30:
+        color = "#DE935F"
+    elif charge_num > 5:
+        color = "#A54242"
+    else:
+        color = "#FF0000"
+else:
+    if charge_num == 100:
+        color = "#D8D8D8"
+        status_disp = ''
+    else:
+        color = "#558024"
+
+if charge_num > 90:
+    battery_symbol = ''
+if charge_num > 60:
+    battery_symbol = ''
+elif charge_num > 30:
+    battery_symbol = ''
+elif charge_num > 5:
+    battery_symbol = ''
+else:
+    battery_symbol = ''
+
+battery_line = "<span color='" + color + "'>" + status_disp + " " + battery_symbol + "</span> "
+print(battery_line +
+      charge + " " +
+      "(" + time + ")")
