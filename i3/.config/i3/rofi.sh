@@ -58,5 +58,4 @@ case $tod in
     ;;
 esac
 
-width=$(eval "$dir/myres.sh | cut -d 'x' -f 1")
-rofi -show run -width $width -fg "#$fg" -bg "#$bg" -hlbg "#$fg" -hlfg "#$bg" -bc "#$c_background" -location 0 -lines 8 -bw 0 -font "Inconsolata Bold 16" -padding 400 -separator-style none -opacity 85
+rofi -show run -fullscreen -fg "#$fg" -bg "#$bg" -hlbg "#$fg" -hlfg "#$bg" -bc "#$c_background" -location 0 -lines 8 -bw 0 -font "Inconsolata Bold 16" -padding 400 -separator-style none -opacity 85
