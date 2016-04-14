@@ -13,17 +13,21 @@ time = status_sections[4].strip(' ,')
 color = "#D8D8D8"
 battery_symbol = ":V"
 charge_num = int(charge.strip('%'))
+charge_empty = 5
+charge_low = 30
+charge_med = 60
+charge_high = 90
 
 status_disp = ''
 if status == "Discharging":
     status_disp = ''
-    if charge_num > 90:
+    if charge_num > charge_high:
         color = "#D8D8D8"
-    if charge_num > 60:
+    if charge_num > charge_med:
         color = "#558024"
-    elif charge_num > 30:
+    elif charge_num > charge_low:
         color = "#DE935F"
-    elif charge_num > 5:
+    elif charge_num > charge_empty:
         color = "#A54242"
     else:
         color = "#FF0000"
@@ -34,13 +38,13 @@ else:
     else:
         color = "#558024"
 
-if charge_num > 90:
+if charge_num > charge_high:
     battery_symbol = ''
-if charge_num > 60:
+if charge_num > charge_med:
     battery_symbol = ''
-elif charge_num > 30:
+elif charge_num > charge_low:
     battery_symbol = ''
-elif charge_num > 5:
+elif charge_num > charge_empty:
     battery_symbol = ''
 else:
     battery_symbol = ''
