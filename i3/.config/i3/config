@@ -37,33 +37,39 @@ set $base5      #D8D8D8
 set $base6      #E8E8E8
 set $base7      #F8F8F8
 
+
+# black
+set $color0  #181818
+set $color8  #383838
+
 # red
-set $color1      #a54242
-set $color9      #cc6666
+set $color1  #a54242
+set $color9  #cc6666
 
 # green
-set $color2      #44682a
-set $color10     #5d9541
+set $color2  #558024
+set $color10 #89b540
 
 # yellow
-set $color3      #de935f
-set $color11     #f0c674
+set $color3  #de935f
+set $color11 #f0c674
 
 # blue
-set $color4      #2669a0
-set $color12     #5f778c
+set $color4  #2669a0
+set $color12 #5b95c2
 
 # magenta
-set $color5      #85678f
-set $color13     #b294bb
+set $color5  #3e727c
+set $color13 #86bec1
 
 # cyan
-set $color6      #5e8d87
-set $color14     #8abeb7
+set $color6  #85678f
+set $color14 #b294bb
 
 # white
-set $color7      #707880
-set $color15     #c5c8c6
+set $color7  #707880
+set $color15 #c5c8c6
+
 
 # Font
 set $font Roboto, FontAwesome 11
@@ -139,6 +145,10 @@ bindsym $mod+a focus parent
 # focus the child container
 #bindsym $mod+d focus child
 
+# Cycle through workspaces
+bindsym $mod+Control+Left workspace prev
+bindsym $mod+Control+Right workspace next
+
 # Workspaces
 set $ws1 1 
 set $ws2 2 
@@ -210,13 +220,13 @@ bar {
         font pango:$font
         strip_workspace_numbers yes
         colors {
-                separator   $color10
+                separator   $color2
                 background  $base0
                 statusline  $color1
                 #                  border   background      text
                 focused_workspace  $base0   $base0          $base5
-                active_workspace   $base0   $color10        $color10
-                inactive_workspace $base0   $base0          $color10
+                active_workspace   $base0   $color2        $color2
+                inactive_workspace $base0   $base0          $color2
                 urgent_workspace   $base0   $base0          $color1
         }
 }
