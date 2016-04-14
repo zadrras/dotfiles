@@ -21,7 +21,7 @@ interval=1
 
 # Dropbox
 [dropbox]
-command=exec ~/.config/i3/dropbox.sh
+command=exec ~/.config/i3/scripts/dropbox
 label=
 full_text=
 interval=5

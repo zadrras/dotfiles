@@ -87,7 +87,7 @@ focus_follows_mouse  no
 bindsym $mod+Shift+q kill
 
 # start rofi (a program launcher)
-bindsym $mod+d exec ~/.config/i3/rofi.sh
+bindsym $mod+d exec ~/.config/i3/scripts/rofi
 
 
 # There also is the (new) i3-dmenu-desktop which only displays applications
@@ -256,7 +256,7 @@ bindsym XF86MonBrightnessUp exec light -A 10 # increase screen brightness
 bindsym XF86MonBrightnessDown exec light -U 10 # decrease screen brightness
 
 # Touchpad controls
-bindsym XF86TouchpadToggle exec ~/.config/i3/toggletouchpad.sh # toggle touchpad
+bindsym XF86TouchpadToggle exec ~/.config/i3/scripts/toggletouchpad # toggle touchpad
 
 # Media player controls
 bindsym XF86AudioPlay exec playerctl play
@@ -268,7 +268,7 @@ bindsym XF86AudioPrev exec playerctl previous
 exec_always --no-startup-id "sh -c 'sleep 1; feh --bg-fill ~/Pictures/bg.jpg'"
 
 # Lockscreen
-bindsym Control+Shift+l exec ~/.config/i3/lock.sh
+bindsym Control+Shift+l exec ~/.config/i3/scripts/lock
 
 set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
 mode "$mode_system" {
@@ -287,7 +287,7 @@ mode "$mode_system" {
 bindsym $mod+x mode "$mode_system"
 
 # Language switching Alt+Shift
-bindcode Mod1+50 exec ~/.config/i3/setkeymap.sh
+bindcode Mod1+50 exec ~/.config/i3/scripts/setkeymap
 
 # Default workspace
 exec i3-msg "workspace number 1 $ws1"
