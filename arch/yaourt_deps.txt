@@ -1,0 +1,10 @@
+atom-editor
+caja-dropbox
+dropbox-cli
+i3-gaps-git
+i3blocks
+rofi-git
+systemd-numlockontty
+ttf-font-awesome
+ttf-roboto-font
+ttf-roboto-mono
