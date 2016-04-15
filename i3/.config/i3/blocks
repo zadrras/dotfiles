@@ -103,6 +103,7 @@ command=exec ~/.config/i3/scripts/battery
 markup=pango
 color=#D8D8D8
 interval=30
+full_text=
 
 [separator]
 
