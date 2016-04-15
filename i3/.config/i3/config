@@ -216,7 +216,7 @@ bindsym $mod+r mode "resize"
 bar {
         status_command i3blocks -c ~/.config/i3/blocks
         workspace_buttons yes
-        tray_output primary
+        tray_output none
         font pango:$font
         strip_workspace_numbers yes
         colors {
