@@ -15,7 +15,7 @@ markup=none
 # Keymap
 [keymap]
 command=echo  $(setxkbmap -query | awk 'END{print toupper($2)}')
-color=#2669a0
+color=#5b7bb1
 interval=1
 
 [separator]
@@ -60,7 +60,7 @@ interval=30
 [iface]
 label=
 #instance=wlan0
-color=#558024
+color=#449b28
 full_text=
 interval=10
 separator=false

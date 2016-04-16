@@ -21,7 +21,7 @@ set $pink #F92672
 set $light_green #A6E22E
 set $green #77A915
 set $dark_green #4D6917
-set $black_green #002908
+set $black_green #17330D
 #set $black #000000
 #set $white #FFFFFF
 set $dark_gray #1A1A1A
@@ -37,34 +37,33 @@ set $base5      #D8D8D8
 set $base6      #E8E8E8
 set $base7      #F8F8F8
 
-
 # black
 set $color0  #181818
 set $color8  #383838
 
 # red
-set $color1  #a54242
-set $color9  #cc6666
+set $color1  #a52e2e
+set $color9  #cc5656
 
 # green
-set $color2  #558024
-set $color10 #89b540
+set $color2  #449b28
+set $color10 #6eb540
 
 # yellow
-set $color3  #de935f
-set $color11 #f0c674
+set $color3  #c8a85a
+set $color11 #f0c97d
 
 # blue
-set $color4  #2669a0
-set $color12 #5b95c2
+set $color4  #1d3792
+set $color12 #5b7bb1
 
 # magenta
-set $color5  #3e727c
-set $color13 #86bec1
+set $color5  #8f5ca0
+set $color13 #b294bb
 
 # cyan
-set $color6  #85678f
-set $color14 #b294bb
+set $color6  #4d969b
+set $color14 #86bec1
 
 # white
 set $color7  #707880
@@ -155,6 +154,7 @@ set $ws2 2 
 set $ws3 3 
 set $ws4 4 
 set $ws5 5 
+
 # switch to workspace
 bindsym $mod+1 workspace number 1 $ws1
 bindsym $mod+2 workspace number 2 $ws2
@@ -226,7 +226,7 @@ bar {
                 statusline  $color1
                 #                  border   background      text
                 focused_workspace  $base0   $base0          $base5
-                active_workspace   $base0   $color2        $color2
+                active_workspace   $base0   $base0          $color2
                 inactive_workspace $base0   $base0          $color2
                 urgent_workspace   $base0   $base0          $color1
         }
@@ -235,15 +235,15 @@ bar {
 
 # colorclass            border      background      text        indicator
 client.focused          $black      $color10        $color10    $color1
-client.unfocused        $black      $color2         $color10    $color1
-client.focused_inactive $black      $color10        $color10    $color1
+client.unfocused        $black      $black_green    $color10    $color1
+client.focused_inactive $black      $dark_green     $color10    $color1
 client.urgent           $black      $color1         $color10    $color1
 client.background       $black
 
 # Border stuff
 for_window [class="^.*"] border pixel 1
 gaps inner 5
-gaps outer 5
+gaps outer 0
 smart_gaps on
 smart_borders on
 
@@ -319,3 +319,5 @@ exec --no-startup-id i3-msg 'workspace number 2 $ws2; exec i3-sensible-terminal'
 exec --no-startup-id i3-msg 'workspace number 3 $ws3; exec i3-sensible-terminal'
 exec --no-startup-id compton -b
 exec redshift -t 6500:3200 &
+
+bindsym $mod+m move workspace to output left

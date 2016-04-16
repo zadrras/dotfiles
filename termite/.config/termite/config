@@ -43,28 +43,28 @@ color0  = #181818
 color8  = #383838
 
 # red
-color1  = #a54242
-color9  = #cc6666
+color1  = #a52e2e
+color9  = #cc5656
 
 # green
-color2  = #558024
-color10 = #89b540
+color2  = #449b28
+color10 = #6eb540
 
 # yellow
-color3  = #de935f
-color11 = #f0c674
+color3  = #c8a85a
+color11 = #f0c97d
 
 # blue
-color4  = #2669a0
-color12 = #5b95c2
+color4  = #1d3792
+color12 = #5b7bb1
 
 # magenta
-color5  = #3e727c
-color13 = #86bec1
+color5  = #8f5ca0
+color13 = #b294bb
 
 # cyan
-color6  = #85678f
-color14 = #b294bb
+color6  = #4d969b
+color14 = #86bec1
 
 # white
 color7  = #707880

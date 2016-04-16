@@ -9,7 +9,6 @@ battery_status = subprocess.check_output(acpi_command,
                                          stderr=fnull).decode("ascii")
 
 if not battery_status:
-    print()
     exit()
 
 status_sections = battery_status.split(' ')
