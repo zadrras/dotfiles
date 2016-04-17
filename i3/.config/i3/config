@@ -234,10 +234,10 @@ bar {
 #hide_edge_borders both
 
 # colorclass            border      background      text        indicator
-client.focused          $black      $color10        $color10    $color1
-client.unfocused        $black      $black_green    $color10    $color1
-client.focused_inactive $black      $dark_green     $color10    $color1
-client.urgent           $black      $color1         $color10    $color1
+client.focused          $black      $color2         $black    $color1
+client.unfocused        $black      $black_green    $base4    $color1
+client.focused_inactive $black      $dark_green     $base4    $color1
+client.urgent           $black      $color1         $base4    $color1
 client.background       $black
 
 # Border stuff
