@@ -13,8 +13,10 @@ if not battery_status:
 
 status_sections = battery_status.split(' ')
 status = status_sections[2].strip(' ,')
-charge = status_sections[3].strip(' ,')
-time = status_sections[4].strip(' ,')[:-3]
+charge = status_sections[3].strip(' ,\n')
+time = ""
+if len(status_sections) >= 5:
+    time = status_sections[4].strip(' ,')[:-3]
 
 color = "#D8D8D8"
 battery_symbol = ":V"
@@ -46,7 +48,7 @@ else:
 
 if charge_num > charge_high:
     battery_symbol = ''
-if charge_num > charge_med:
+elif charge_num > charge_med:
     battery_symbol = ''
 elif charge_num > charge_low:
     battery_symbol = ''
@@ -56,6 +58,7 @@ else:
     battery_symbol = ''
 
 battery_line = "<span color='" + color + "'>" + status_disp + " " + battery_symbol + "</span> "
-print(battery_line +
-      charge + " " +
-      "(" + time + ")")
+if charge_num < 100:
+    print(battery_line + charge + " " + "(" + time + ")")
+else:
+    print(battery_line + charge)
