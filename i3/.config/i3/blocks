@@ -41,6 +41,8 @@ signal=10
 
 # Memory usage
 [memory]
+command=exec ~/.config/i3/scripts/memory
+markup=pango
 label=
 color=#D8D8D8
 full_text=
@@ -49,6 +51,8 @@ interval=5
 
 # Disk usage
 [disk]
+command=exec ~/.config/i3/scripts/disk
+markup=pango
 label=
 color=#D8D8D8
 full_text=

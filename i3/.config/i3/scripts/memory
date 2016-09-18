@@ -1,0 +1,32 @@
+#!/usr/bin/env python
+
+import psutil
+
+mem = psutil.virtual_memory()
+
+total_blocks = int(round(mem.total/(1024*1024*1024)))
+filled_fraction = mem.percent / 100.0 * total_blocks
+num_filled = int(filled_fraction)
+
+fill_symbols = ""
+for i in range(num_filled):
+    fill_symbols += ""
+
+if filled_fraction - num_filled >= 0.5:
+    fill_symbols += ""
+else:
+    fill_symbols += ""
+
+for i in range(total_blocks - num_filled - 1):
+    fill_symbols += ""
+
+
+color = "#D8D8D8"
+
+if mem.percent > 90.0:
+    color = "#FF0000"
+elif mem.percent > 75.0:
+    color = "#A54242"
+
+output_line = ("<span color='" + color + "'>" + fill_symbols + "</span> ")
+print(output_line)
