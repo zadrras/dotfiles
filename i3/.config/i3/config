@@ -151,7 +151,7 @@ bindsym Control+Mod1+Right workspace next
 # Workspaces
 set $ws1 1 
 set $ws2 2 
-set $ws3 3 
+set $ws3 3 
 set $ws4 4 
 set $ws5 5 
 set $ws9 
@@ -318,7 +318,7 @@ for_window [window_role="Preferences"] floating enable
 
 exec --no-startup-id i3-msg 'workspace number 1 $ws1; exec $browser'
 exec --no-startup-id i3-msg 'workspace number 2 $ws2; exec i3-sensible-terminal'
-exec --no-startup-id i3-msg 'workspace number 3 $ws3; exec i3-sensible-terminal'
+exec --no-startup-id i3-msg 'workspace number 3 $ws3; exec i3-sensible-terminal -e ranger'
 exec --no-startup-id compton -b
 exec redshift -t 6500:3200 &
 
