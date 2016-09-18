@@ -29,11 +29,11 @@ charge_high = 90
 status_disp = ''
 if status == "Discharging":
     status_disp = ''
-    if charge_num > charge_high:
-        color = "#D8D8D8"
-    if charge_num > charge_med:
-        color = "#558024"
-    elif charge_num > charge_low:
+    #if charge_num > charge_high:
+    #    color = "#D8D8D8"
+    #if charge_num > charge_med:
+    #    color = "#558024"
+    if charge_num > charge_low:
         color = "#F0C674"
     elif charge_num > charge_empty:
         color = "#A54242"
