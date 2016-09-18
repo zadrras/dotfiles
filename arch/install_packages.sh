@@ -1,3 +1,5 @@
 #!/usr/bin/env sh
 
-yaourt -Syua `cat pacman_deps.txt` `cat yaourt_deps.txt` --needed
+pacaur -Syu `cat pacman_deps.txt` --needed
+
+pip install --upgrade -r pip_deps.txt
