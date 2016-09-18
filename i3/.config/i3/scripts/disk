@@ -4,20 +4,19 @@ import psutil
 
 mem = psutil.disk_usage("/")
 
+mem_percent = int(round(mem.percent))
+color = "#D8D8D8"
 
-mem_total = int(round(mem.total / (1024*1024*1024)))
-mem_used = int(round(mem.used / (1024*1024*1024)))
-color = "#558024"
-
-if mem.percent > 90.0:
+if mem.percent > 98.0:
     color = "#FF0000"
-elif mem.percent > 75.0:
+elif mem.percent > 80.0:
     color = "#A54242"
+elif mem.percent > 50.0:
+    color = "#F0C674"
 
-output_line = "<span color='{}'>{}</span>/{}GB".format(
+output_line = "<span color='{}'>{}%</span>".format(
     color,
-    mem_used,
-    mem_total
+    mem_percent
 )
 
 print(output_line)

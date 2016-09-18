@@ -39,6 +39,8 @@ instance=Master
 interval=1
 signal=10
 
+[separator]
+
 # Memory usage
 [memory]
 command=exec ~/.config/i3/scripts/memory
@@ -46,7 +48,6 @@ markup=pango
 label=
 color=#D8D8D8
 full_text=
-separator=false
 interval=5
 
 # Disk usage
