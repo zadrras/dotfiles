@@ -28,5 +28,6 @@ if mem.percent > 90.0:
 elif mem.percent > 75.0:
     color = "#A54242"
 
-output_line = ("<span color='" + color + "'>" + fill_symbols + "</span> ")
+output_line = "<span font_size='small' color='{}'>{}</span>".format(color,
+                                                                  fill_symbols)
 print(output_line)
