@@ -15,7 +15,6 @@ blas
 boost
 bzip2
 caja-gtk3
-chromium
 clang
 clang-tools-extra
 cmake
@@ -25,15 +24,12 @@ coreutils
 cryptsetup
 ctags
 cuda
-cython
-cython2
 dconf-editor
 device-mapper
 dhcpcd
 dialog
 diffutils
 dmenu
-doomsday
 dosfstools
 dropbox
 dropbox-cli
@@ -69,7 +65,6 @@ gsl
 gtk-theme-arc-git
 gzip
 hdf5
-hexen2
 htop
 hunspell-en
 i3-gaps-git
@@ -88,7 +83,6 @@ latex-beamer
 less
 libinput
 libreoffice-fresh
-libselinux
 libtool
 libxkbcommon-x11
 licenses
@@ -117,7 +111,6 @@ mate-session-manager-gtk3
 mate-settings-daemon-gtk3
 mate-system-monitor
 mate-themes
-mate-themes-extras
 mate-user-guide
 mate-user-share
 mate-utils
@@ -129,7 +122,6 @@ neovim
 netctl
 network-manager-applet
 networkmanager
-nlopt
 nm-connection-editor
 nmap
 nvidia
@@ -147,22 +139,14 @@ pcmciautils
 perl
 pinta
 pkg-config
-playerctl
 polkit
 procps-ng
 psmisc
 pulseaudio
 pulseaudio-alsa
 pyqt5-common
-python-msgpack
 python-pip
-python-pycodestyle
-python2-dateutil
 python2-pip
-python2-pyparsing
-python2-pyqt5
-python2-pytz
-python2-sip
 qpdfview
 qt5-base
 qtchooser
@@ -177,7 +161,6 @@ sed
 sfml
 shadow
 sip
-skype-desktop-bin
 sl
 stellarium
 stow

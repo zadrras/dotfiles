@@ -10,7 +10,6 @@ bokeh
 brewer2mpl
 cairocffi
 cffi
-chardet
 cycler
 Cython
 decorator
@@ -24,7 +23,6 @@ isort
 Jinja2
 keyring
 lazy-object-proxy
-livestreamer
 Mako
 MarkupSafe
 matplotlib
@@ -55,7 +53,6 @@ pytz
 pyxdg
 PyYAML
 ranger
-requests
 scikit-learn
 scipy
 simplegeneric
@@ -63,5 +60,4 @@ six
 statsmodels
 tornado
 traitlets
-urllib3
 wrapt
