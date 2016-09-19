@@ -61,7 +61,6 @@ scipy
 simplegeneric
 six
 statsmodels
-team
 tornado
 traitlets
 urllib3
