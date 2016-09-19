@@ -185,7 +185,7 @@ tk
 ttf-font-awesome
 ttf-hack
 ttf-inconsolata
-ttf-roboto
+ttf-roboto-font
 ttf-roboto-mono
 unzip
 usbutils
