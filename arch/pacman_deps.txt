@@ -116,7 +116,6 @@ mate-user-share
 mate-utils
 mdadm
 mendeleydesktop
-moka-icon-theme-git
 nano
 neovim
 netctl
@@ -137,6 +136,7 @@ patch
 pciutils
 pcmciautils
 perl
+perl-anyevent-i3
 pinta
 pkg-config
 polkit
@@ -199,6 +199,7 @@ wget
 which
 wpa_actiond
 wpa_supplicant
+w3m
 x2goclient
 xcb-util-image
 xcb-util-keysyms
