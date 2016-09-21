@@ -151,9 +151,9 @@ bindsym Control+Mod1+Right workspace next
 # Workspaces
 set $ws1 1 
 set $ws2 2 
-set $ws3 3 
-set $ws4 4 
-set $ws5 5 
+set $ws3 3 
+set $ws4 4 
+set $ws5 5 
 set $ws9 
 set $ws0  
 
@@ -303,7 +303,7 @@ bindsym $mod+t exec atom
 bindsym $mod+c exec caja
 bindsym $mod+Return exec i3-sensible-terminal
 
-for_window [class="chromium"] move container to workspace number 1 $ws1
+# for_window [class="chromium"] move container to workspace number 1 $ws1
 
 # Correct handling of floating windows
 for_window [window_role="pop-up"] floating enable
@@ -313,9 +313,14 @@ for_window [window_role="dialog"] floating enable
 for_window [window_role="menu"] floating enable
 for_window [window_role="Preferences"] floating enable
 
-exec --no-startup-id i3-msg 'workspace number 1 $ws1; exec $browser'
-exec --no-startup-id i3-msg 'workspace number 2 $ws2; exec i3-sensible-terminal'
-exec --no-startup-id i3-msg 'workspace number 3 $ws3; exec i3-sensible-terminal -e ranger'
+exec --no-startup-id i3-msg 'workspace number 1 $ws1; append_layout ~/.config/i3/workspace-1.json'
+exec --no-startup-id i3-msg 'workspace number 2 $ws2; append_layout ~/.config/i3/workspace-2.json'
+
+exec --no-startup-id i3-msg 'exec $browser'
+
+exec --no-startup-id i3-msg 'exec termite --name term1'
+exec --no-startup-id i3-msg 'exec termite --name term2'
+exec --no-startup-id i3-msg 'exec termite -e ranger --name ranger'
 exec --no-startup-id compton -b
 exec redshift -t 6500:3200 &
 
