@@ -292,9 +292,6 @@ bindsym $mod+x mode "$mode_system"
 # Language switching Alt+Shift
 bindcode Mod1+50 exec ~/.config/i3/scripts/setkeymap
 
-# Default workspace
-exec i3-msg "workspace number 1 $ws1"
-
 # Application binds
 set $browser google-chrome-stable
 
@@ -321,5 +318,9 @@ exec --no-startup-id i3-msg 'workspace number 2 $ws2; exec i3-sensible-terminal'
 exec --no-startup-id i3-msg 'workspace number 3 $ws3; exec i3-sensible-terminal -e ranger'
 exec --no-startup-id compton -b
 exec redshift -t 6500:3200 &
+
+# Default workspace
+exec i3-msg "workspace number 1 $ws1"
+
 
 bindsym $mod+m move workspace to output left
