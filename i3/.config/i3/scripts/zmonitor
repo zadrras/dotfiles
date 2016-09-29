@@ -1,0 +1,79 @@
+#!/usr/bin/env python3
+
+import subprocess
+import os
+
+xrandr_query = ["xrandr"]
+fnull = open(os.devnull, 'w')
+monitor_status = subprocess.check_output(xrandr_query,
+                                         stderr=fnull).decode("ascii")
+
+if not monitor_status:
+    print("Couldn't run xrandr!")
+    exit()
+
+connections = []
+for line in monitor_status.split('\n'):
+    if " connected " in line:
+        connections.append(line.split(' ')[0])
+       
+if len(connections) <= 1:
+    print("Nothing to configure.")
+    exit()
+
+xrandr_command = ["xrandr"]
+print("Which connection is to the primary display?")
+for i, conn in enumerate(connections):
+    print("{}) {}".format(i + 1, conn))
+
+print("0) EXIT")
+
+answer = -1
+while answer not in range(len(connections) + 1):
+    try:
+        answer = int(input("> "))
+    except TypeError:
+        pass
+
+if answer == 0:
+    exit()
+else:
+    answer -= 1
+
+primary_connection = connections[answer]
+del connections[answer]
+xrandr_command.append("--output")
+xrandr_command.append(primary_connection)
+xrandr_command.append("--auto")
+xrandr_command.append("--primary")
+
+for conn in connections:
+    print("Where to place {} in relation to primary display?".format(conn))
+    print("1) Left")
+    print("2) Right")
+    print("0) EXIT")
+
+    answer = -1
+    while answer not in [0, 1, 2]:
+        try:
+            answer = int(input("> "))
+        except TypeError:
+            pass
+
+    if answer == 0:
+        exit()
+    else:
+        answer -= 1
+
+    xrandr_command.append("--output")
+    xrandr_command.append(conn)
+    xrandr_command.append("--auto")
+    if answer == 1:
+        xrandr_command.append("--left-of")
+    else:
+        xrandr_command.append("--right-of")
+
+    xrandr_command.append(primary_connection)
+
+subprocess.call(xrandr_command)
+
