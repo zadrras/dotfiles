@@ -1,3 +1,4 @@
+ttf-liberation
 acpi
 acpid
 alsa-firmware
