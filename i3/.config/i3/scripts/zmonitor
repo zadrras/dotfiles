@@ -18,7 +18,9 @@ for line in monitor_status.split('\n'):
         connections.append(line.split(' ')[0])
        
 if len(connections) <= 1:
-    print("Nothing to configure.")
+    subprocess.call(["xrandr", "--output", connections[0], 
+                     "--auto", "--primary"])
+    print("Nothing to configure, refreshing display.")
     exit()
 
 xrandr_command = ["xrandr"]
