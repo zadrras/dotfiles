@@ -1,13 +1,9 @@
 appdirs
-Archey3
 astroid
 astropy
 astroquery
 backports.shutil-get-terminal-size
 Beaker
-beautifulsoup4
-bokeh
-brewer2mpl
 cairocffi
 cffi
 cycler
