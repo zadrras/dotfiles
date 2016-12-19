@@ -14,9 +14,12 @@ elif mem.percent > 80.0:
 elif mem.percent > 50.0:
     color = "#F0C674"
 
-output_line = "<span color='{}'>{}%</span>".format(
+total = mem.total / (1024.0 * 1024.0 * 1024.0)
+used = (mem.total - mem.available) / (1024.0 * 1024.0 * 1024.0)
+output_line = "<span color='{}'>{:.2f}/{:.2f}GB</span>".format(
     color,
-    mem_percent
+    used,
+    total
 )
 
 print(output_line)

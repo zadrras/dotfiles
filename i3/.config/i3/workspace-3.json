@@ -9,12 +9,12 @@
        "x": 0,
        "y": 0
     },
-    "name": "i3-save-tree  /home/zadrras",
+    "name": "ranger  /home/zadrras",
     "percent": 1,
     "swallows": [
        {
         "class": "^Termite$",
-        "instance": "^term1$"
+        "instance": "^ranger$"
        }
     ],
     "type": "con"
