@@ -1,71 +1,34 @@
 " Stolen Chaosteil's Neovim init.vim :^)
 
 " Plug Settings
-if has('gui_win32')
-  let plugpath='~/vimfiles/bundle'
-else
-  let plugpath='~/.config/nvim/bundle'
-end
+let plugpath='~/.config/nvim/bundle'
 
 " Reenable checking of filetypes and filetype indent plugins
 filetype plugin indent on
 call plug#begin(plugpath)
 
-"Plug 'FelikZ/ctrlp-py-matcher'
-"Plug 'ctrlpvim/ctrlp.vim'
-"Plug 'davidhalter/jedi-vim', { 'for': 'python' }
-"Plug 'klen/python-mode', { 'for': 'python' }
-"Plug 'scrooloose/syntastic'
-Plug 'MarcWeber/vim-addon-mw-utils'
-Plug 'Raimondi/delimitMate'
-Plug 'Shougo/deoplete.nvim'
-Plug 'SirVer/ultisnips'
-Plug 'benekastah/neomake'
-Plug 'derekwyatt/vim-protodef'
-Plug 'godlygeek/tabular'
-Plug 'gotgenes/vim-yapif'
-Plug 'honza/vim-snippets'
-Plug 'jceb/vim-orgmode'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
-Plug 'majutsushi/tagbar'
+function! DoRemote(arg)
+    UpdateRemotePlugins
+endfunction
+
+Plug 'davidhalter/jedi-vim', { 'for': 'python' }
+Plug 'klen/python-mode', { 'for': 'python' }
+Plug 'neomake/neomake'
 Plug 'mattn/gist-vim'
 Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
-Plug 'mhinz/vim-signify'
-Plug 'mhinz/vim-startify'
-Plug 'mikewest/vimroom'
-Plug 'myusuf3/numbers.vim'
-Plug 'plasticboy/vim-markdown'
 Plug 'rhysd/vim-clang-format'
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
-Plug 'sheerun/vim-polyglot'
 Plug 'thinca/vim-localrc'
-Plug 'tomasr/molokai'
-Plug 'tomtom/tlib_vim'
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-obsession'
-Plug 'tpope/vim-speeddating'
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-vinegar'
-Plug 'uarun/vim-protobuf'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-"Plug 'wakatime/vim-wakatime'
 Plug 'xolox/vim-easytags'
-Plug 'xolox/vim-lua-ftplugin'
 Plug 'xolox/vim-misc'
 Plug 'tomasr/molokai'
-
-Plug 'JSON.vim'
-Plug 'a.vim'
-Plug 'gmcs.vim'
-Plug 'google.vim'
-Plug 'utl.vim'
-
-"if has("unix") && system("uname") != "Darwin\n"
-  "Plug 'Valloric/YouCompleteMe', { 'do': 'python2 install.py --clang-completer --system-libclang' }
-  "Plug 'rdnetto/YCM-Generator', {'branch': 'stable'}
-"endif
+Plug 'rust-lang/rust.vim'
+Plug 'racer-rust/vim-racer'
+Plug 'ervandew/supertab'
+Plug 'Shougo/deoplete.nvim', { 'do': function ('DoRemote') }
 
 call plug#end()
 
@@ -78,44 +41,6 @@ colorscheme molokai " Set up my currently favored colorscheme
 hi Normal ctermbg=none
 
 " }}}
-
-" System settings {{{
-
-if has('gui_running')
-  " Only in gvim
-  if has('gui_win32')
-    " Windows font
-    set guifont=Consolas:h10
-  elseif has('gui_macvim')
-    " Mac font + AirLine
-    " From https://github.com/Lokaltog/vim-powerline/wiki/Patched-fonts
-    set guifont=Inconsolata-dz\ for\ Powerline:h10
-    let g:airline_powerline_fonts=1
-  else
-    " Linux font
-    set guifont=Inconsolata\ 9
-  end
-
-  " Remove UI
-  set guioptions-=T " Tabs
-  set guioptions-=l " Left scrollbar
-  set guioptions-=L
-  set guioptions-=r " Right scrollbar
-  set guioptions-=R
-else
-  " Terminal stuff. If any.
-end
-
-" Nice title!
-if has('title') && (has('gui_running') || &title)
-  set titlestring=
-  set titlestring+=%f " file name
-  set titlestring+=%h%m%r%w " flags
-  set titlestring+=\ -\ vim " IS THIS REALLY VIM!?
-endif
-
-" }}}
-
 
 " Make command line completion nicer
 set wildmenu
@@ -157,10 +82,9 @@ set encoding=utf-8
 set nowrap " No wrapping on the right side
 set nolinebreak "No linebreak
 set tabpagemax=20 " Max possible to open tabs with :tab all
-set tabstop=2 " Tabstop size
+set tabstop=4 " Tabstop size
 set cursorline " Highlight screen line where the cursor is
-set shiftwidth=2 " Number of spaces for each step of indent
-set backspace=2 " Backspacing with all possible indents
+set shiftwidth=4 " Number of spaces for each step of indent
 set expandtab " Expand tab to spaces by default
 set smartindent " Smart indenting when starting a new line
 set autoindent " Copy indent from current line when starting a new line
@@ -199,6 +123,9 @@ nnoremap <silent> <space> :nohlsearch<Bar>:echo<CR>
 " Enable doxygen highlighting for supported files
 let g:load_doxygen_syntax=1
 
+" Neomake compile on make
+autocmd! BufWritePost * Neomake! cargo
+
 " Empty space automatic highlighting
 highlight default link EndOfLineSpace ErrorMsg
 match EndOfLineSpace / \+$/
@@ -208,45 +135,10 @@ autocmd InsertLeave * hi link EndOfLineSpace ErrorMsg
 " Highlight VCS conflict markers
 match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
 
-" Various compilation settings {{{
-" Make F5 compile
-map <F5> : call CompileGcc()<CR>
-func! CompileGcc()
-  exec "w"
-  exec "!g++ % -o %<"
-endfunc
-
-" Make F6 compile and run
-map <F6> :call CompileRunGcc()<CR>
-func! CompileRunGcc()
-  exec "w"
-  exec "!g++ % -o %<"
-  if has('gui_win32')
-    exec "! %<.exe"
-  else
-    exec "! ./%<"
-  endif
-endfunc
-
-" Map F7 to make
-map <F7> : call CompileMake()<CR>
-func! CompileMake()
-	exec "make"
-endfunc
-" }}}
-
-" Because I'm too lazy to type this out everytime
-function FormatJson()
-  %!python -mjson.tool
-endfunction
-
 " Custom Colorcolumn settings
 hi colorcolumn ctermbg=red ctermfg=white guibg=#592929
 set colorcolumn=81 " Make a colorcolumn for the 81st symbol
 set textwidth=80 " Also automatically split at 80
-
-autocmd VimEnter * autocmd WinEnter * let w:created=1
-autocmd VimEnter * let w:created=1
 
 " Enable silent ctags compilation
 au BufWritePost .c,.cpp,.h silent! :UpdateTags<CR>
@@ -397,17 +289,6 @@ set nofoldenable
 "set foldlevel=10
 "set foldmethod=syntax
 
-" Change tab settings for four-space projects
-nnoremap <leader>o :Tabchange<CR>
-vnoremap <leader>o :Tabchange<CR>
-command -bar Tabchange call ToggleTab()
-" helper function to toggle tabbing mode
-function ToggleTab()
-  set tabstop=4
-  set shiftwidth=4
-  set softtabstop=4
-endfunction
-
 " Easytags settings
 let g:easytags_file = '~/.config/nvim/tags/tags'
 let g:easytags_dynamic_files=1
@@ -421,41 +302,8 @@ let g:gist_open_browser_after_post=1
 " YouCompleteMe settings
 let g:ycm_confirm_extra_conf = 0
 
-" Lua Vim settings
-let g:lua_complete_omni = 0
-
-" Startify settings
-let g:startify_change_to_dir = 0  " I define my own dir with .local.vimrc
-
-" Airline settings
-function! AirlineInit()
-  let g:airline_section_z=airline#section#create_right(['%3l/%L:%3c'])
-endfunction
-autocmd VimEnter * call AirlineInit()
-let g:airline_theme='powerlineish'
-
-" CtrlP settings
-let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn|meta|pyc)$'
-let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
-let g:ctrlp_lazy_update = 100
-let g:ctrlp_max_files = 0
-if executable("ag")
-  set grepprg=ag\ --nogroup\ --nocolor
-  let g:ctrlp_user_command = 'ag %s -i --nocolor --nogroup --ignore ''.git'' --ignore ''.DS_Store'' --ignore ''node_modules'' --hidden -g ""'
-endif
-let $FZF_DEFAULT_COMMAND = 'ag -l -g "" `git rev-parse --show-toplevel`'
-nnoremap <C-P> :FZF %:p:h<CR>
-
-" Ultisnips settings
-let g:UltiSnipsExpandTrigger="<c-j>"
-let g:UltiSnipsJumpForwardTrigger="<c-j>"
-let g:UltiSnipsJumpBackwardTrigger="<c-k>"
-
 " Nvim terminal settings
 tnoremap <Esc> <C-\><C-n> " Enter normal mode on escape
-
-" Neomake settings
-autocmd! BufWritePost * Neomake
 
 " Deoplete Settings
 let g:deoplete#enable_at_startup=1
