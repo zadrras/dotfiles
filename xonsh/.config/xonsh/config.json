@@ -1,0 +1,13 @@
+{
+ "env": {
+  "XONSH_COLOR_STYLE": "native"
+ },
+ "foreign_shells": [
+  {"shell": "bash", "login": true}
+ ],
+ "xontribs": [
+  "distributed",
+  "mpl",
+  "vox"
+ ]
+}
