@@ -167,5 +167,6 @@ xorg-server
 xorg-xclipboard
 xorg-xinit
 xorg-xrandr
+xonsh
 zip
 evince
