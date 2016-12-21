@@ -9,12 +9,12 @@
        "x": 0,
        "y": 0
     },
-    "name": "ranger  /home/zadrras",
+    "name": "Terminal 3",
     "percent": 1,
     "swallows": [
        {
         "class": "^Termite$",
-        "instance": "^ranger$"
+        "instance": "^term3$"
        }
     ],
     "type": "con"
