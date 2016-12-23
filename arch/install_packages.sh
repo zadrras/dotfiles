@@ -2,4 +2,4 @@
 
 pacaur -Syu `cat pacman_deps.txt` --needed
 
-sudo pip install --upgrade -r pip_deps.txt
+pip install --upgrade --user -r pip_deps.txt
