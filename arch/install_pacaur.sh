@@ -7,7 +7,7 @@ pushd "$build"
   git clone https://aur.archlinux.org/pacaur.git
 
   pushd "cower"
-    makepkg -sri
+    makepkg -sri --skippgpcheck
   popd
 
   pushd "pacaur"
