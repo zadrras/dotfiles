@@ -56,7 +56,7 @@ hdf5
 htop
 hunspell-en
 i3-gaps-git
-i3blocks
+polybar
 i3lock-color
 i3status
 inetutils
@@ -170,3 +170,5 @@ xorg-xrandr
 xonsh
 zip
 evince
+compton
+google-chrome
