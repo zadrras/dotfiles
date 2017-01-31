@@ -1,4 +1,6 @@
 ttf-liberation
+noto-fonts
+adobe-source-han-sans-otc-fonts
 acpi
 acpid
 alsa-firmware
