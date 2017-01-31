@@ -4,7 +4,7 @@ stow git
 git submodule update --init --recursive
 
 stow ranger
-stow fish
+stow zsh
 stow nvim
 stow bash
 stow xonsh
