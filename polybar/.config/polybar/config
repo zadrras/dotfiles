@@ -213,22 +213,29 @@ label-disconnected-foreground = ${colors.color9}
 [module/volume]
 type = internal/volume
 
-format-volume =   <bar-volume>
+format-volume =   <ramp-volume>
 
 label-volume = 
 label-muted = 
 
-bar-volume-width = 10
-bar-volume-foreground-0 = ${colors.color10}
+ramp-volume-foreground-0 = ${colors.color10}
 bar-volume-gradient = false
-bar-volume-indicator = 
-bar-volume-indicator-font = 1
-bar-volume-indicator-foreground = ${colors.white}
-bar-volume-fill = 
-bar-volume-fill-font = 1
-bar-volume-empty = 
-bar-volume-empty-font = 1
-bar-volume-empty-foreground = ${colors.base3}
+ramp-volume-0 = ▁
+ramp-volume-0-font = 2
+ramp-volume-1 = ▂
+ramp-volume-1-font = 2
+ramp-volume-2 = ▃
+ramp-volume-2-font = 2
+ramp-volume-3 = ▄
+ramp-volume-3-font = 2
+ramp-volume-4 = ▅
+ramp-volume-4-font = 2
+ramp-volume-5 = ▆
+ramp-volume-5-font = 2
+ramp-volume-6 = ▇
+ramp-volume-6-font = 2
+ramp-volume-7 = █
+ramp-volume-7-font = 2
 
 [module/powermenu]
 type = custom/menu
@@ -261,7 +268,7 @@ interval = 25
 
 mount-0 = /
 
-label-mounted =  %used%/%total%
+label-mounted =   %used%/%total%
 label-mounted-padding = 1
 
 label-unmounted =
