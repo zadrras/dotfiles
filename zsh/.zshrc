@@ -38,6 +38,7 @@ source $ZSH/oh-my-zsh.sh
 # Customize to your needs...
 export PATH=$PREFIXPATH:/usr/local/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin:/usr/local/git/bin:$PATH
 export PATH="$HOME/bin:$PATH" # A local bin dir in home!
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/cuda/lib64/
 bindkey -v
 
 bindkey '^[[A' up-line-or-search                                                
