@@ -104,10 +104,11 @@ type = internal/battery
 battery = BAT1
 adapter = ACAD
 full-at = 99
+poll-interval = 30
 
 time-format = %H:%M
-label-charging = %percentage% (%time%)
-label-discharging = %percentage% (%time%)
+label-charging = %percentage%% (%time%)
+label-discharging = %percentage%% (%time%)
 
 format-charging = <animation-charging> <label-charging>
 format-charging-padding = 1
