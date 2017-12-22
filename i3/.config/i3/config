@@ -275,7 +275,7 @@ bindsym $mod+x mode "$mode_system"
 bindcode Mod1+50 exec ~/.config/i3/scripts/setkeymap
 
 # Application binds
-set $browser google-chrome-stable              
+set $browser firefox
 
 # Start on boot
 
