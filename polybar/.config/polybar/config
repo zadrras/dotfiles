@@ -101,10 +101,10 @@ label-urgent-padding = 2
 
 [module/battery]
 type = internal/battery
-battery = BAT1
-adapter = ACAD
+battery = BAT0
+adapter = AC
 full-at = 99
-poll-interval = 30
+poll-interval = 10
 
 time-format = %H:%M
 label-charging = %percentage%% (%time%)
