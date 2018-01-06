@@ -92,8 +92,8 @@ set scrolloff=5 " Keeps the cursor 5 lines from the top or bottom of the screen
 set ttimeoutlen=50 " To not pause after leaving insert mode
 
 " Default filetype I'm most comfy with
-set filetype=cpp
-set syntax=cpp
+set filetype=py
+set syntax=py
 
 " More comfortable search
 set ignorecase " Ignores the case of the searched item
@@ -122,9 +122,6 @@ nnoremap <silent> <space> :nohlsearch<Bar>:echo<CR>
 
 " Enable doxygen highlighting for supported files
 let g:load_doxygen_syntax=1
-
-" Neomake compile on make
-autocmd! BufWritePost * Neomake! cargo
 
 " Empty space automatic highlighting
 highlight default link EndOfLineSpace ErrorMsg
