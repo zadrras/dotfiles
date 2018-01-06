@@ -1,0 +1,5 @@
+#!/bin/sh
+
+xrandr --output $PRIMARY_DISPLAY --auto --primary
+
+i3-msg restart

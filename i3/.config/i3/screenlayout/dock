@@ -1,0 +1,6 @@
+#!/bin/sh
+
+xrandr --output $PRIMARY_DISPLAY --auto --primary \
+       --output $SECONDARY_DISPLAY --auto --right_of $PRIMARY_DISPLAY
+
+i3-msg restart

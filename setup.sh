@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+stow xinitrc
 stow git
 git submodule update --init --recursive
 
