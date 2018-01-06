@@ -51,7 +51,7 @@ bindkey '^[3;5~' delete-char
 
 alias irssi='TERM=screen-256color irssi'
 alias weechat='TERM=screen-256color weechat'
-alias ls='ls -Gh --color'
+alias ls='ls -h --color'
 
 # Open the right editor when requested ;)
 alias vim='nvim'
