@@ -216,6 +216,11 @@ format-connected = <label-connected>  <ramp-signal>
 format-connected-padding = 1
 format-disconnected-padding = 1
 
+ramp-signal-underline = ${colors.base3}
+ramp-signal-underline-size = 1
+ramp-signal-overline = ${colors.base3}
+ramp-signal-overline-size = 1
+
 ramp-signal-0 = ▁
 ramp-signal-0-foreground = ${colors.color1}
 ramp-signal-1 = ▂
@@ -272,6 +277,11 @@ format-volume =   <ramp-volume>
 
 label-volume = 
 label-muted = 
+
+ramp-volume-underline = ${colors.base3}
+ramp-volume-underline-size = 1
+ramp-volume-overline = ${colors.base3}
+ramp-volume-overline-size = 1
 
 ramp-volume-foreground-0 = ${colors.color10}
 ramp-volume-0 = ▁
