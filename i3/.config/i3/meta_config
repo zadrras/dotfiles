@@ -297,13 +297,12 @@ exec i3-msg "workspace 1"
 bindsym $mod+m move workspace to output left
 
 # New mode for switching monitor modes
-set $monitorMode "monitor s=single, d=dock p=present"
-bindsym $mod+Shift+m mode $monitorMode
-mode $monitorMode {
-  bindsym s exec "~/.config/i3/screenlayout/single"
-  bindsym d exec "~/.config/i3/screenlayout/dock"
-  bindsym p exec "~/.config/i3/screenlayout/presentation"
-  # back to normal: Enter or Escapes
-  bindsym Return mode "default"
-  bindsym Escape mode "default"
+set $monitor_mode "monitor s=single, d=duo"
+bindsym $mod+Shift+m mode $monitor_mode
+mode $monitor_mode {
+    bindsym s exec "~/.config/i3/screenlayout/single"
+    bindsym d exec "~/.config/i3/screenlayout/duo"
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
 }
