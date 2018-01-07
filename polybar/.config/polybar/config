@@ -123,7 +123,7 @@ label-urgent-padding = 2
 
 [module/xwindow]
 type = internal/xwindow
-label = "    %title%"
+label = "  %title%"
 
 [module/battery]
 type = internal/battery
