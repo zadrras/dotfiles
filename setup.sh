@@ -14,3 +14,6 @@ stow i3
 stow termite
 
 nvim +'PlugInstall | qall'
+
+systemctl enable thinkfan
+systemctl enable laptop-mode
