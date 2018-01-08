@@ -80,7 +80,7 @@ tray-transparent = false
 tray-maxsize=24
 
 modules-left = i3 xwindow
-modules-right = keyboard volume wlan filesystem cpu temperature memory battery date powermenu
+modules-right = keyboard volume wlan eth filesystem cpu temperature memory battery date powermenu
 
 [bar/secondary]
 inherit=bar/primary

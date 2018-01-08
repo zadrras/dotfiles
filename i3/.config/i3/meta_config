@@ -137,9 +137,16 @@ bindsym $mod+a focus parent
 bindsym Control+Mod1+Left workspace prev
 bindsym Control+Mod1+Right workspace next
 
+workspace 1 output ${env:PRIMARY_MONITOR}
+workspace 2 output ${env:PRIMARY_MONITOR}
 workspace 3 output ${env:SECONDARY_MONITOR}
 workspace 4 output ${env:SECONDARY_MONITOR}
 workspace 5 output ${env:SECONDARY_MONITOR}
+workspace 6 output ${env:PRIMARY_MONITOR}
+workspace 7 output ${env:PRIMARY_MONITOR}
+workspace 8 output ${env:PRIMARY_MONITOR}
+workspace 9 output ${env:PRIMARY_MONITOR}
+workspace 10 output ${env:PRIMARY_MONITOR}
 
 # switch to workspace
 bindsym $mod+1 workspace 1
@@ -306,3 +313,4 @@ mode $monitor_mode {
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
+
