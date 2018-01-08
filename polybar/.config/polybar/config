@@ -74,10 +74,11 @@ wm-restack = i3
 
 enable-ipc = true
 
-tray-position = right
+tray-position =
 tray-padding = 0
 tray-transparent = false
-tray-maxsize=24
+tray-scale = 0.8
+tray-maxsize = 24
 
 modules-left = i3 xwindow
 modules-right = keyboard volume wlan eth filesystem cpu temperature memory battery date powermenu
@@ -123,6 +124,7 @@ label-urgent-padding = 2
 [module/xwindow]
 type = internal/xwindow
 label = "  %title%"
+label-maxlen = 100
 
 [module/battery]
 type = internal/battery
