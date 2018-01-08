@@ -17,3 +17,7 @@ nvim +'PlugInstall | qall'
 
 systemctl enable thinkfan
 systemctl enable laptop-mode
+
+sudo cp scripts/* /usr/local/bin/
+sudo cp systemd_scripts/* /etc/systemd/system/
+systemctl enable i3lock

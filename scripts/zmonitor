@@ -16,7 +16,7 @@ connections = []
 for line in monitor_status.split('\n'):
     if " connected " in line:
         connections.append(line.split(' ')[0])
-       
+
 if len(connections) <= 1:
     subprocess.call(["xrandr", "--output", connections[0], 
                      "--auto", "--primary"])

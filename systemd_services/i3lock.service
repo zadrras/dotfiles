@@ -1,0 +1,13 @@
+[Unit]
+Description=i3lock on suspend
+Before=sleep.target
+
+[Service]
+User=jb
+Type=forking
+Environment=DISPLAY=:0
+ExecStart=/usr/local/bin/zlock
+
+[Install]
+WantedBy=sleep.target
+Environment=
