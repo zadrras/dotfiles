@@ -81,7 +81,7 @@ tray-scale = 0.8
 tray-maxsize = 24
 
 modules-left = i3 xwindow
-modules-right = keyboard volume wlan eth filesystem cpu temperature memory battery date powermenu
+modules-right = keyboard volume wlan eth filesystem cpu temperature memory battery0 battery1 date powermenu
 
 [bar/secondary]
 inherit=bar/primary
@@ -124,13 +124,12 @@ label-urgent-padding = 2
 [module/xwindow]
 type = internal/xwindow
 label = "  %title%"
-label-maxlen = 100
+label-maxlen = 80
 
 [module/battery]
 type = internal/battery
-battery = BAT0
 adapter = AC
-full-at = 99
+full-at = 98
 poll-interval = 10
 
 time-format = %H:%M
@@ -160,6 +159,14 @@ animation-charging-3 = 
 animation-charging-4 = 
 animation-charging-foreground = ${colors.white}
 animation-charging-framerate = 500
+
+[module/battery0]
+inherit = module/battery
+battery = BAT0
+
+[module/battery1]
+inherit = module/battery
+battery = BAT1
 
 [module/cpu]
 type = internal/cpu
