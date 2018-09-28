@@ -284,10 +284,10 @@ exec --no-startup-id i3-msg 'workspace 3; append_layout ~/.config/i3/workspace-3
 
 exec --no-startup-id i3-msg 'exec $browser'
 
-exec --no-startup-id i3-msg 'exec alacritty --name term1'
-exec --no-startup-id i3-msg 'exec alacritty -e ranger --name ranger'
-exec --no-startup-id i3-msg 'exec alacritty --name term2'
-exec --no-startup-id i3-msg 'exec alacritty --name term3'
+exec --no-startup-id i3-msg 'exec alacritty --class term1'
+exec --no-startup-id i3-msg 'exec alacritty --class ranger -e ranger'
+exec --no-startup-id i3-msg 'exec alacritty --class term2'
+exec --no-startup-id i3-msg 'exec alacritty --class term3'
 
 exec --no-startup-id udiskie &
 exec --no-startup-id redshift -t 6500:3200 &
