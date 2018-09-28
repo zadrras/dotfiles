@@ -37,7 +37,7 @@ source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
 export PATH=$PREFIXPATH:/usr/local/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin:/usr/local/git/bin:$PATH
-export PATH="$HOME/bin:$PATH" # A local bin dir in home!
+export PATH="$HOME/.local/bin:$PATH" # A local bin dir in home!
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/cuda/lib64/
 bindkey -v
 
@@ -74,4 +74,11 @@ alias -s c=$EDITOR
 alias -s h=$EDITOR
 alias -s lua=$EDITOR
 
+export GPG_TTY="$(tty)"
+export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+gpg-connect-agent updatestartuptty /bye > /dev/null
+
+eval "$(pyenv init -)"
+
 source ~/.local_paths
+source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
