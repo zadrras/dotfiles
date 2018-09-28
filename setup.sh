@@ -12,6 +12,7 @@ stow --adopt xonsh
 stow --adopt polybar
 stow --adopt i3
 stow --adopt termite
+stow --adopt alacritty
 
 nvim +'PlugInstall | qall'
 

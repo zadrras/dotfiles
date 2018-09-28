@@ -265,7 +265,7 @@ set $browser firefox
 
 # Applications
 bindsym $mod+b exec $browser
-bindsym $mod+Return exec i3-sensible-terminal
+bindsym $mod+Return exec alacritty
 
 # for_window [class="chromium"] move container to workspace number 1
 
@@ -284,10 +284,10 @@ exec --no-startup-id i3-msg 'workspace 3; append_layout ~/.config/i3/workspace-3
 
 exec --no-startup-id i3-msg 'exec $browser'
 
-exec --no-startup-id i3-msg 'exec termite --name term1'
-exec --no-startup-id i3-msg 'exec termite -e ranger --name ranger'
-exec --no-startup-id i3-msg 'exec termite --name term2'
-exec --no-startup-id i3-msg 'exec termite --name term3'
+exec --no-startup-id i3-msg 'exec alacritty --name term1'
+exec --no-startup-id i3-msg 'exec alacritty -e ranger --name ranger'
+exec --no-startup-id i3-msg 'exec alacritty --name term2'
+exec --no-startup-id i3-msg 'exec alacritty --name term3'
 
 exec --no-startup-id udiskie &
 exec --no-startup-id redshift -t 6500:3200 &
