@@ -14,6 +14,7 @@ stow --adopt i3
 stow --adopt termite
 stow --adopt alacritty
 stow --adopt makepkg
+sudo stow scripts --target=/usr/local/bin
 
 nvim +'PlugInstall | qall'
 
