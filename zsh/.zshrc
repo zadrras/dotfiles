@@ -16,7 +16,7 @@ export TERM=xterm-256color
 # CASE_SENSITIVE="true"
 
 # Comment this out to disable weekly auto-update checks
-# DISABLE_AUTO_UPDATE="true"
+DISABLE_AUTO_UPDATE="true"
 
 # Uncomment following line if you want to disable colors in ls
 # DISABLE_LS_COLORS="true"
@@ -77,8 +77,6 @@ alias -s lua=$EDITOR
 export GPG_TTY="$(tty)"
 export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
 gpg-connect-agent updatestartuptty /bye > /dev/null
-
-eval "$(pyenv init -)"
 
 source ~/.local_paths
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
