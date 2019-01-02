@@ -1,0 +1,285 @@
+#!/usr/bin/python
+
+import os
+import subprocess
+import argparse
+import yaml
+
+
+class Monitor:
+    def __init__(
+        self,
+        name="VGA1",
+        resolution=(1920, 1080),
+        physical_size=(310, 170),
+        refresh_rate=60.0,
+        connected=False,
+        primary=False,
+    ):
+        self.name = name
+        self.resolution = resolution
+        self.physical_size = physical_size
+        self.refresh_rate = refresh_rate
+        self.connected = connected
+        self.primary = primary
+
+    @property
+    def dpi(self):
+        size_inches = self.physical_size[0] * 0.0393701
+        return int(self.resolution[0] / size_inches)
+
+def construct_xrandr_command(
+    monitor, mode, available_positions, primary_name, scale, primary_monitor
+):
+    monitor_command = []
+    monitor_command.append("--output")
+    monitor_command.append(monitor.name)
+    if monitor.primary:
+        monitor_command.append("--primary")
+        monitor_command.append("--mode")
+        x, y = monitor.resolution
+        monitor_command.append("{}x{}".format(x, y))
+    else:
+        if mode == "single":
+            monitor_command.append("--off")
+        elif mode == "mirror":
+            monitor_command.append("--same-as")
+            monitor_command.append(primary_name)
+            monitor_command.append("--mode")
+            x, y = monitor.resolution
+            monitor_command.append("{}x{}".format(x, y))
+            monitor_command.append("--scale-from")
+            pri_x, pri_y = primary_monitor.resolution
+            monitor_command.append("{}x{}".format(pri_x, pri_y))
+        elif mode in ["dock", "presentation"]:
+            monitor_command.append(available_positions.pop(0))
+            monitor_command.append(primary_name)
+            monitor_command.append("--mode")
+            x, y = monitor.resolution
+            monitor_command.append("{}x{}".format(x, y))
+
+            if scale == "dpi":
+                scaling_factor = primary_monitor.dpi / monitor.dpi
+            else:
+                scaling_factor = scale
+            monitor_command.append("--scale")
+            monitor_command.append("{}x{}".format(scaling_factor, scaling_factor))
+    return monitor_command
+
+
+workspace_layouts = {
+    "single": {"PRIMARY": [1, 2, 3, 4, 5, 6, 7, 8, 9, 0], "SECONDARY": []},
+    "mirror": {"PRIMARY": [1, 2, 3, 4, 5, 6, 7, 8, 9, 0], "SECONDARY": []},
+    "dock": {"PRIMARY": [8], "SECONDARY": [1, 2, 3, 4, 5, 6, 7, 9, 0]},
+    "presentation": {"PRIMARY": [1, 2, 3, 4, 5, 6, 7, 8, 9], "SECONDARY": [0]},
+}
+
+
+def construct_wsmove_commands(monitors, mode):
+    monmap = {
+        "PRIMARY": next(m for m in monitors if m.primary),
+        "SECONDARY": next((m for m in monitors if not m.primary), monitors[0]),
+    }
+
+    move_commands = []
+    for wsnum in range(10):
+        if wsnum in workspace_layouts[mode]["PRIMARY"]:
+            monitor = monmap["PRIMARY"]
+        else:
+            monitor = monmap["SECONDARY"]
+        command = "i3-msg workspace {wsnum} output {monitor}".format(
+            wsnum=wsnum, monitor=monitor.name
+        )
+        move_commands.append(command)
+        command = "i3-msg [workspace={wsnum}] move workspace to output {monitor}".format(
+            wsnum=wsnum, monitor=monitor.name
+        )
+        move_commands.append(command)
+    return move_commands
+
+
+polybar_layouts = {
+    "single": {"primary": "PRIMARY", "secondary": "SECONDARY"},
+    "mirror": {"primary": "SECONDARY", "secondary": "PRIMARY"},
+    "dock": {"primary": "SECONDARY", "secondary": "PRIMARY"},
+    "presentation": {"primary": "PRIMARY", "secondary": "SECONDARY"},
+}
+
+
+def construct_polybar_commands(monitors, mode):
+    monmap = {
+        "PRIMARY": next(m for m in monitors if m.primary),
+        "SECONDARY": next((m for m in monitors if not m.primary), monitors[0]),
+    }
+    layout = polybar_layouts[mode]
+    commands = []
+    available_bars = ["primary"]
+    if mode in ["dock", "presentation"] and len(monitors) > 1:
+        available_bars.append("secondary")
+    for bar_name in available_bars:
+        main_type = layout[bar_name]
+        if main_type == "PRIMARY":
+            nonmain_type = "SECONDARY"
+        else:
+            nonmain_type = "PRIMARY"
+        env_variables = "PRIMARY_MONITOR={primary} SECONDARY_MONITOR={secondary}".format(
+            primary=monmap[main_type].name, secondary=monmap[nonmain_type].name
+        )
+        # Bug workaround for polybar, as it acts real weird with mirrored modes
+        if mode == "mirror":
+            env_variables = env_variables + " PIN_WORKSPACES=false"
+        command = "{env} polybar {bar} &".format(env=env_variables, bar=bar_name)
+        commands.append(command)
+    return commands
+
+
+def isfloat(value):
+    try:
+        float(value)
+        return True
+    except ValueError:
+        return False
+
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--primary_name", type=str, default=None)
+    parser.add_argument(
+        "--mode",
+        type=str,
+        choices=["single", "mirror", "dock", "presentation"],
+        default=None,
+    )
+    parser.add_argument("--scale", default=None)
+    parser.add_argument("-v", "--verbose", action="store_true")
+    parser.add_argument(
+        "-s",
+        "--save",
+        action="store_true",
+        help="Save given params to config file as new defaults",
+    )
+    parser.add_argument(
+        "-d",
+        "--dry",
+        action="store_true",
+        help="Run without applying any configuration changes",
+    )
+    args = parser.parse_args()
+    cmd_params = vars(args)
+
+    config_path = os.path.join(os.environ["HOME"], ".displayrc")
+    with open(config_path, "r") as f:
+        config = yaml.load(f)
+
+    for key, value in cmd_params.items():
+        if value is not None and key not in ["save", "dry"]:
+            config[key] = value
+
+    if args.save:
+        with open(config_path, "w") as f:
+            yaml.dump(config, f, default_flow_style=False)
+
+    xrandr_query = ["xrandr", "--query"]
+    fnull = open(os.devnull, "w")
+    try:
+        monitor_status = subprocess.check_output(xrandr_query, stderr=fnull).decode(
+            "ascii"
+        )
+    except subprocess.CalledProcessError as exc:
+        monitor_status = exc.output.decode("ascii")
+    status_lines = monitor_status.split("\n")
+
+    monitors = []
+    for lidx, line in enumerate(status_lines):
+        if " connected " in line:
+            name = line.split(" ")[0]
+            physical_x = int(line.split(" ")[-3].replace("mm", ""))
+            physical_y = int(line.split(" ")[-1].replace("mm", ""))
+            resolution = None
+            refresh_rate = None
+            for res_line in status_lines[lidx + 1 :]:
+                if "+" in res_line:
+                    res_line_split = [
+                        r.strip() for r in res_line.split("  ") if r.strip()
+                    ]
+                    resolution = res_line_split[0].split("x")
+                    resolution = tuple(int(x) for x in resolution)
+                    refresh_rate = [float(r[:4]) for r in res_line_split if "+" in r][0]
+                    break
+            monitor = Monitor(
+                name=name,
+                resolution=resolution,
+                physical_size=(physical_x, physical_y),
+                refresh_rate=refresh_rate,
+                connected=True,
+                primary=name == config["primary_name"],
+            )
+            if " connected " in line:
+                monitors.append(monitor)
+
+    if config["verbose"]:
+        print("Found {} displays:".format(len(monitors)))
+        for i, monitor in enumerate(monitors):
+            print(
+                "    {}. {}: {}x{} @ {}, size: {}x{}mm (dpi: {})".format(
+                    i + 1,
+                    monitor.name,
+                    *monitor.resolution,
+                    monitor.refresh_rate,
+                    *monitor.physical_size,
+                    monitor.dpi
+                )
+            )
+
+    if args.dry:
+        return
+
+    if config["verbose"]:
+        print()
+        print("Configuring xrandr:")
+
+    available_positions = ["--right-of", "--left-of", "--above", "--below"]
+    xrandr_command = ["xrandr"]
+    primary_monitor = next(m for m in monitors if m.primary)
+    for monitor in monitors:
+        monitor_command = construct_xrandr_command(
+            monitor,
+            config["mode"],
+            available_positions,
+            config["primary_name"],
+            config["scale"],
+            primary_monitor,
+        )
+        if config["verbose"]:
+            print("    {}: '{}'".format(monitor.name, " ".join(monitor_command[2:])))
+        xrandr_command.extend(monitor_command)
+    subprocess.call(xrandr_command)
+
+    wsmoves = construct_wsmove_commands(monitors, config["mode"])
+    if config["verbose"]:
+        print()
+        print("Moving workspaces:")
+        for wsmove in wsmoves:
+            print("    {}".format(wsmove))
+    for wsmove in wsmoves:
+        subprocess.call(wsmove.split(" "))
+
+    polybar_commands = construct_polybar_commands(monitors, config["mode"])
+    if config["verbose"]:
+        print()
+        print("Creating polybars:")
+        for command in polybar_commands:
+            print("    {}".format(command))
+
+    subprocess.call("killall -q polybar", shell=True)
+    subprocess.call("while pgrep -x polybar >/dev/null; do sleep 1; done", shell=True)
+    for command in polybar_commands:
+        subprocess.call(command, shell=True)
+
+    layout = workspace_layouts[config["mode"]]
+    subprocess.call(["i3-msg", "workspace", "{}".format(layout["PRIMARY"][0])])
+    subprocess.call(["i3-msg", "workspace", "{}".format(layout["SECONDARY"][0])])
+
+
+if __name__ == "__main__":
+    main()

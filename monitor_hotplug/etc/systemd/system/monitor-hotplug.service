@@ -1,0 +1,14 @@
+[Unit]
+Description=Monitor hotplug
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+User=jb
+ExecStartPre=sleep 1
+ExecStart=/usr/local/bin/monitor-hotplug -v
+ExecStartPost=/usr/local/bin/post-i3-start
+Environment=DISPLAY=:0
+
+[Install]
+WantedBy=multi-user.target
