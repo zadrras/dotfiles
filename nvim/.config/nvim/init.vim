@@ -1,306 +1,133 @@
-" Stolen Chaosteil's Neovim init.vim :^)
-
-" Plug Settings
+" Plug settings
 let plugpath='~/.config/nvim/bundle'
 
-" Reenable checking of filetypes and filetype indent plugins
 filetype plugin indent on
 call plug#begin(plugpath)
-
-function! DoRemote(arg)
-    UpdateRemotePlugins
-endfunction
-
+Plug 'scrooloose/nerdtree'
 Plug 'davidhalter/jedi-vim', { 'for': 'python' }
-Plug 'klen/python-mode', { 'for': 'python' }
-Plug 'neomake/neomake'
-Plug 'mattn/gist-vim'
-Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
-Plug 'rhysd/vim-clang-format'
-Plug 'scrooloose/nerdcommenter'
-Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
-Plug 'thinca/vim-localrc'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'xolox/vim-easytags'
-Plug 'xolox/vim-misc'
-Plug 'tomasr/molokai'
-Plug 'rust-lang/rust.vim'
-Plug 'racer-rust/vim-racer'
-Plug 'ervandew/supertab'
-Plug 'Shougo/deoplete.nvim', { 'do': function ('DoRemote') }
-
+Plug 'vim-syntastic/syntastic', {'for': 'python'}
+Plug 'airblade/vim-gitgutter'
+Plug 'ambv/black'
 call plug#end()
 
-" Colorscheme {{{
-" Sets up the specific font and color for individual system settings
+" Colorscheme
+syntax on
+colorscheme molokai
 
-syntax on " Enable syntax highlighting
-colorscheme molokai " Set up my currently favored colorscheme
-" Disable terminal background for transparency goodness
-hi Normal ctermbg=none
-
-" }}}
-
-" Make command line completion nicer
+" Nicer command line completion
 set wildmenu
+set wildmode=longest:full,full
 
-" Let files reopen on the same line if opened again
+" Reopen files on same line as when closed
 autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
-\| exe "normal g'\"" | endif
+\| exec "normal g'\"" | endif
 
-" Sudo fix {{{
-" Allows to write a file when forgot to do sudo
+" Sudo writing with w!!
 cmap w!! %!sudo tee > /dev/null %
-" }}}
 
-" Backups {{{
-" Write backups
-set nobackup " disable backups
-set noswapfile " disable swaps
-" Directories for when we need backup/swaps
-"set backupdir=~/.config/nvim/tmp/backup " backups
-"set directory=~/.config/nvim/tmp/swap " swap files
-
- "Persistent undo
+" Persistent undo
 if has("persistent_undo")
-  set undofile
-  set undodir=~/.config/nvim/undo " undo files
-  set undolevels=1000
-  set undoreload=10000
+    set undofile
+    set undodir=~/.config/nvim/undo
+    set undolevels=1000
+    set undoreload=10000
 endif
- "}}}
 
-set lazyredraw " Do not show macro expansion visually
+set lazyredraw " Do not show macro expansions visually
 set showtabline=1 " Show tabs on top only if available
 set laststatus=2 " Status bar always visible
 
-set clipboard=unnamed " On windows, use the unnamed register as system
-set fileformats=unix,dos,mac
+set clipboard=unnamed " Use system clipboard
+set clipboard+=unnamedplus
 
 set encoding=utf-8
-set nowrap " No wrapping on the right side
-set nolinebreak "No linebreak
-set tabpagemax=20 " Max possible to open tabs with :tab all
-set tabstop=4 " Tabstop size
-set cursorline " Highlight screen line where the cursor is
-set shiftwidth=4 " Number of spaces for each step of indent
-set expandtab " Expand tab to spaces by default
-set smartindent " Smart indenting when starting a new line
-set autoindent " Copy indent from current line when starting a new line
-set scrolloff=5 " Keeps the cursor 5 lines from the top or bottom of the screen
-set ttimeoutlen=50 " To not pause after leaving insert mode
+set nowrap " Do not wrap text, have to scroll to see it!
+set nolinebreak " uhhh
+set tabstop=4
+set cursorline " Highlight line where cursor is
+set shiftwidth=4 " Number of spaces per tab
+set expandtab " Expand tabs to spaces
+set smartindent " Smart indenting on new line
+autocmd FileType python set cinwords=if,elif,else,for,while,try,except,finally,def,class
+set autoindent " Copy indent from current line when starting new line
+set scrolloff=5 " Keep cursor 5 lines from top or bottom when scrolling
+set ttimeoutlen=50 " Don't pause after leaving insert mode
 
-" Default filetype I'm most comfy with
-set filetype=py
-set syntax=py
+set ignorecase " Ignore case generally
+set smartcase " Case-sensitive only when containing uppercase
 
-" More comfortable search
-set ignorecase " Ignores the case of the searched item
-set smartcase " If contains uppercase letter, make it a case-sensitive search
-
-set number  " Show line in front of each line
+set number " Show line number for each line
 set showcmd " Show command in the last line of the screen
-set ruler   " Show line, column, etc. at the bottom
+set ruler " Show line, column at the bottom
 
 set showmatch " Show matching braces
 
-set mouse=a " Mouse enabled for all modes
-set comments=sO:*\ -,mO:*\ \ ,exO:*/,s1:/*,mb:*,ex:*/,bO:///,O://
+set hlsearch " Highlight search
 
-set guioptions+=a " Autoselect for visual mode
-set guioptions+=c " Console dialogs instead of popup dialogs
-
-" We don't want any interruptions
-set noerrorbells
-set novisualbell
-
-" Highlight search
-set hlsearch
-" Space to turn off highlighting
 nnoremap <silent> <space> :nohlsearch<Bar>:echo<CR>
 
-" Enable doxygen highlighting for supported files
-let g:load_doxygen_syntax=1
-
-" Empty space automatic highlighting
+" Trailing whitespaces highlighting
 highlight default link EndOfLineSpace ErrorMsg
 match EndOfLineSpace / \+$/
 autocmd InsertEnter * hi link EndOfLineSpace Normal
 autocmd InsertLeave * hi link EndOfLineSpace ErrorMsg
 
-" Highlight VCS conflict markers
-match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
-
-" Custom Colorcolumn settings
-hi colorcolumn ctermbg=red ctermfg=white guibg=#592929
-set colorcolumn=81 " Make a colorcolumn for the 81st symbol
-set textwidth=80 " Also automatically split at 80
-
-" Enable silent ctags compilation
-au BufWritePost .c,.cpp,.h silent! :UpdateTags<CR>
-"au BufWritePost .c,.cpp,.h silent! call ForceTags()
-au! BufRead,BufNewFile *.json set filetype=json
-au! BufRead,BufNewFile *.proto set filetype=proto
-au! BufRead,BufNewFile *.doxygen set filetype=doxygen
-
-nnoremap <C-F12> :UpdateTags<CR>
-"map <C-F12> : call ForceTags()<CR>
-"func! ForceTags()
-  "exec "!ctags -R --sort=yes --c++-kinds=+pxl --fields=+iaS --extra=+q . &"
-"endfunc
-
-" Alt-right/left to navigate forward/backward in the tags stack
-map <M-Left> <C-T>
-map <M-Right> <C-]>
-
-" Proper tag finding
-set tags=./tags;/
-set tags+=$VIMRUNTIME/tags/stdcpp
-
-" Some useful bindings for various panes {{{
 nnoremap <F2> :NERDTreeToggle<CR>
 nnoremap <F3> :TagbarToggle<CR>
 nnoremap <F4> :UndotreeToggle<CR>
-" }}}
-
-" NerdTree settings
-let NERDTreeMinimalUI=1
+nnoremap <C-l> :SyntasticCheck<CR>
+nnoremap <C-a> :Black<CR>
 let NERDTreeDirArrows=1
-" Do not display .o, backup files, python compilation files and unity meta files
-let NERDTreeIgnore=['\.o$', '\~$', '\.pyc$', '\.meta']
-let NERDTreeChDirMode=1
-let NERDTreeHijackNetrw=1
+let NERDTreeIgnore = ['\.pyc$']
+let NERDTreeShowHidden=1
 
-" NerdCommenter {{{
-map <C-C> <leader>c<space>
-map <M-C> <leader>cs
-" }}}
+" File saving
+nnoremap <c-s> :w<CR>
+inoremap <c-s> <Esc>:w<CR>
 
-" Some completion options {{{
-set completeopt=menuone,menu,longest,preview
-set pumheight=15 " Max items in the insert mode completion
-" automatically open and close the popup menu / preview window
-au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endi
-
-" Fix for quickfix window popping up in taglist.
-autocmd! FileType qf wincmd J
-" }}}
-
-" Undotree settings
-let g:undotree_WindowLayout=3
-
-" Jedi Vim settings
-let g:jedi#auto_vim_configuration = 0
-
-" SuperTab settings
-"let g:SuperTabDefaultCompletionType = "context"
-
-" Changed split behavior to open splits by default below and on the right
+" open splits below and right by default
 set splitbelow
 set splitright
 
-" Stop it, hash key.
-inoremap # X<BS>#
-
-" Short startup message
+" short startup message
 set shortmess+=I
 
-" List mapping {{{
-" Show special symbols instead of nothing in special situations
-if has("unix")
-  set list
-  set listchars=tab:▸\ ,extends:❯,precedes:❮
-  set fillchars+=vert:│
-endif
-" }}}
-
-" Substitute {{{
-nnoremap <leader>s :%s//<left>
-set gdefault  " No more g in substitute operations
-" }}}
-
-" Quickfix window for latest search {{{
-nnoremap <silent> <leader>/ :execute 'vimgrep /'.@/.'/g %'<CR>:copen<CR>
-nnoremap <silent> <leader>C :copen<CR>
-nnoremap <silent> <leader>c :cclose<CR>
-" }}}
-
-" Tabular keybindings
-nnoremap <silent> <leader>t= :Tabularize /=<CR>
-vnoremap <silent> <leader>t= :Tabularize /=<CR>
-nnoremap <silent> <leader>t: :Tabularize /:\zs<CR>
-vnoremap <silent> <leader>t: :Tabularize /:\zs<CR>
-
-" Disable annoying keys
-nnoremap <F1> <nop>
-nnoremap Q <nop>
-nnoremap K <nop>
-
-" Hexmode
-nnoremap <C-H> :Hexmode<CR>
-" ex command for toggling hex mode
-command -bar Hexmode call ToggleHex()
-
-" helper function to toggle hex mode - forgot where I got this from, but super
-" useful
-function ToggleHex()
-  " hex mode should be considered a read-only operation
-  " save values for modified and read-only for restoration later,
-  " and clear the read-only flag for now
-  let l:modified=&mod
-  let l:oldreadonly=&readonly
-  let &readonly=0
-  let l:oldmodifiable=&modifiable
-  let &modifiable=1
-  if !exists("b:editHex") || !b:editHex
-    " save old options
-    let b:oldft=&ft
-    let b:oldbin=&bin
-    " set new options
-    setlocal binary " make sure it overrides any textwidth, etc.
-    let &ft="xxd"
-    " set status
-    let b:editHex=1
-    " switch to hex editor
-    %!xxd
-  else
-    " restore old options
-    let &ft=b:oldft
-    if !b:oldbin
-      setlocal nobinary
-    endif
-    " set status
-    let b:editHex=0
-    " return to normal editing
-    %!xxd -r
-  endif
-  " restore values for modified and read only state
-  let &mod=l:modified
-  let &readonly=l:oldreadonly
-  let &modifiable=l:oldmodifiable
-endfunction
-
-" Folding is by default not okay
 set nofoldenable
-"set foldlevel=10
-"set foldmethod=syntax
 
-" Easytags settings
-let g:easytags_file = '~/.config/nvim/tags/tags'
-let g:easytags_dynamic_files=1
-let g:easytags_auto_update=0
-let g:easytags_auto_highlight=0
-let g:easytags_updatetime_min=1000
+let t:is_transparent = 0
+hi Normal guibg=NONE ctermbg=NONE
+hi NonText guibg=None ctermbg=NONE
+function! Toggle_transparent()
+    if t:is_transparent == 0
+        hi NonText guibg=None ctermbg=NONE
+        hi Normal guibg=NONE ctermbg=NONE
+        let t:is_transparent = 1
+    else
+        set background=dark
+        let t:is_tranparent = 0
+    endif
+endfunction
+nnoremap <C-t> : call Toggle_transparent()<CR>
 
-" Gist Vim settings
-let g:gist_open_browser_after_post=1
+" python-mode configs
+let g:pymode_python = 'python3'
 
 " YouCompleteMe settings
 let g:ycm_confirm_extra_conf = 0
 
-" Nvim terminal settings
-tnoremap <Esc> <C-\><C-n> " Enter normal mode on escape
+" Airline settings
+let g:airline_theme='base16_monokai'
 
-" Deoplete Settings
-let g:deoplete#enable_at_startup=1
+"syntastic settings
+"set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+let g:syntastic_python_checkers = ['flake8']
+let g:syntastic_loc_list_height = 5
