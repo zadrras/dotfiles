@@ -1,5 +1,0 @@
-#!/bin/sh
-
-xrandr --output $PRIMARY_MONITOR --auto --primary
-
-i3-msg restart

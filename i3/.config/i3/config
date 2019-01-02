@@ -58,6 +58,7 @@ set $color14 #86bec1
 set $color7  #707880
 set $color15 #c5c8c6
 
+workspace_auto_back_and_forth yes
 
 # Font
 set $font Roboto, FontAwesome 11
@@ -84,10 +85,10 @@ bindsym $mod+d exec zrofi
 # bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 
 # change focus
-bindsym $mod+j focus left
-bindsym $mod+k focus down
-bindsym $mod+l focus up
-bindsym $mod+semicolon focus right
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
@@ -96,10 +97,10 @@ bindsym $mod+Up focus up
 bindsym $mod+Right focus right
 
 # move focused window
-bindsym $mod+Shift+j move left
-bindsym $mod+Shift+k move down
-bindsym $mod+Shift+l move up
-bindsym $mod+Shift+semicolon move right
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Shift+Left move left
@@ -108,10 +109,10 @@ bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
 # split in horizontal orientation
-bindsym $mod+h split h
+bindsym Mod1+Shift+h split h
 
 # split in vertical orientation
-bindsym $mod+v split v
+bindsym Mod1+Shift+v split v
 
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
@@ -136,17 +137,8 @@ bindsym $mod+a focus parent
 # Cycle through workspaces
 bindsym Control+Mod1+Left workspace prev
 bindsym Control+Mod1+Right workspace next
-
-workspace 1 output ${env:PRIMARY_MONITOR}
-workspace 2 output ${env:PRIMARY_MONITOR}
-workspace 3 output ${env:SECONDARY_MONITOR}
-workspace 4 output ${env:SECONDARY_MONITOR}
-workspace 5 output ${env:SECONDARY_MONITOR}
-workspace 6 output ${env:PRIMARY_MONITOR}
-workspace 7 output ${env:PRIMARY_MONITOR}
-workspace 8 output ${env:PRIMARY_MONITOR}
-workspace 9 output ${env:PRIMARY_MONITOR}
-workspace 10 output ${env:PRIMARY_MONITOR}
+bindsym Control+Mod1+h workspace prev
+bindsym Control+Mod1+l workspace next
 
 # switch to workspace
 bindsym $mod+1 workspace 1
@@ -210,7 +202,7 @@ client.background       $black
 
 # Border stuff
 for_window [class="^.*"] border pixel 1
-gaps inner 5
+gaps inner 3
 gaps outer 0
 smart_gaps on
 smart_borders on
@@ -233,11 +225,8 @@ bindsym XF86AudioPause exec playerctl pause
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 
-# Wallpaper
-exec_always --no-startup-id "sh -c 'sleep 1; feh --bg-fill ~/Pictures/bg.jpg'"
-
 # Lockscreen
-bindsym Control+Mod1+l exec zlock
+bindsym Control+Mod1+z exec zlock
 
 set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
 mode "$mode_system" {
@@ -260,12 +249,12 @@ bindcode Mod1+50 exec zsetkeymap
 
 # Application binds
 set $browser firefox
-
+set $term termite
 # Start on boot
 
 # Applications
 bindsym $mod+b exec $browser
-bindsym $mod+Return exec alacritty
+bindsym $mod+Return exec $term
 
 # for_window [class="chromium"] move container to workspace number 1
 
@@ -277,36 +266,40 @@ for_window [window_role="dialog"] floating enable
 for_window [window_role="menu"] floating enable
 for_window [window_role="Preferences"] floating enable
 
-exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 exec --no-startup-id i3-msg 'workspace 1; append_layout ~/.config/i3/workspace-1.json'
 exec --no-startup-id i3-msg 'workspace 2; append_layout ~/.config/i3/workspace-2.json'
 exec --no-startup-id i3-msg 'workspace 3; append_layout ~/.config/i3/workspace-3.json'
+exec --no-startup-id i3-msg 'workspace 4; append_layout ~/.config/i3/workspace-4.json'
+exec --no-startup-id i3-msg 'workspace 8; append_layout ~/.config/i3/workspace-8.json'
 
-exec --no-startup-id i3-msg 'exec $browser'
+exec --no-startup-id "$browser"
 
-exec --no-startup-id i3-msg 'exec alacritty --class term1'
-exec --no-startup-id i3-msg 'exec alacritty --class ranger -e ranger'
-exec --no-startup-id i3-msg 'exec alacritty --class term2'
-exec --no-startup-id i3-msg 'exec alacritty --class term3'
+exec --no-startup-id "$term --class term1"
+exec --no-startup-id "$term --class ranger -e ranger"
+exec --no-startup-id "$term --class term2"
+exec --no-startup-id "$term --class term3"
+exec --no-startup-id "$term --class taskwatch -e taskwatch"
+exec --no-startup-id "$term --class gcalcli -e gcalcliwatch"
+exec --no-startup-id "$term --class gotop -e gotop"
 
-exec --no-startup-id udiskie &
-exec --no-startup-id redshift -t 6500:3200 &
-exec --no-startup-id dropbox &
-exec --no-startup-id compton &
 
-# Default workspace
-exec i3-msg "workspace 1"
-
+exec --no-startup-id "redshift -t 6500:3200"
+exec --no-startup-id "dropbox"
+exec --no-startup-id "compton"
 bindsym $mod+m move workspace to output left
 
 # New mode for switching monitor modes
-set $monitor_mode "monitor s=single, d=duo"
+set $monitor_mode "monitor s=single, d=dock, m=mirror, p=presentation"
 bindsym $mod+Shift+m mode $monitor_mode
 mode $monitor_mode {
-    bindsym s exec "~/.config/i3/screenlayout/single"
-    bindsym d exec "~/.config/i3/screenlayout/duo"
+    bindsym s exec --no-startup-id "monitor-hotplug --mode single --save && post-i3-start", mode "default"
+    bindsym m exec --no-startup-id "monitor-hotplug --mode mirror --save && post-i3-start", mode "default"
+    bindsym d exec --no-startup-id "monitor-hotplug --mode dock --save && post-i3-start", mode "default"
+    bindsym p exec --no-startup-id "monitor-hotplug --mode presentation --save && post-i3-start", mode "default"
     # back to normal: Enter or Escape
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
 
+exec_always --no-startup-id "monitor-hotplug"
+exec_always --no-startup-id "post-i3-start"

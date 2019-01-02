@@ -13,8 +13,7 @@
     "percent": 1,
     "swallows": [
        {
-        "class": "^Alacritty$",
-        "instance": "^term3$"
+        "class": "^term3$"
        }
     ],
     "type": "con"

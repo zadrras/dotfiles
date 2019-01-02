@@ -1,6 +1,0 @@
-#!/bin/sh
-
-xrandr --output $PRIMARY_MONITOR --auto --primary \
-       --output $SECONDARY_MONITOR --auto --right-of $PRIMARY_MONITOR
-
-i3-msg restart
