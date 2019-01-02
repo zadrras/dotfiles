@@ -1,0 +1,10 @@
+#!/bin/bash
+
+COMMAND="gcalcli agenda --military"
+
+tput civis
+clear
+echo $"$($COMMAND 2>&1 )"
+
+TIMEOUT=60
+while sleep $TIMEOUT ; do x="$($COMMAND 2>&1 )" ; clear ; echo "$x" ; done

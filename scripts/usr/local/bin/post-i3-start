@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# Wait for i3 and polybar to restart
+sleep 1
+
+# Wallpaper
+feh --bg-fill ~/Pictures/bg.jpg

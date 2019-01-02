@@ -1,6 +1,3 @@
-export PRIMARY_MONITOR=LVDS1
-export SECONDARY_MONITOR=VGA1
-
-generate_i3_config ~/.config/i3/meta_config ~/.config/i3/config
-
+[[ -f ~/.Xresources ]] && xrdb -merge ~/.Xresources &
+xrandr --dpi 160
 exec i3

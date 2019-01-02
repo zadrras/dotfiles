@@ -1,0 +1,11 @@
+#!/bin/bash
+
+VERBOSITY_SETTING="blank,header,label,edit,special,sync,filter"
+COMMAND="task rc.verbose=$VERBOSITY_SETTING rc._forcecolor=on next"
+
+tput civis
+clear
+echo $"$($COMMAND 2>&1 )"
+
+TIMEOUT=5
+while sleep $TIMEOUT ; do x="$($COMMAND 2>&1 )" ; clear ; echo "$x" ; done
